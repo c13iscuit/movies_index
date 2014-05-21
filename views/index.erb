@@ -1,0 +1,13 @@
+
+<h1>Hello!</h1>
+
+<% counter_max = 1%>
+<% while counter_max < @films_hash.count%>
+  <%@films_hash.each {|key, value|%><a href = "/movies/<%="#{value[:movie_id]}"%>"><%="#{key}"%></a><br><% } %>
+
+<!-- <ul>
+
+  <li>
+
+  </li>
+</ul> -->

@@ -1,0 +1,16 @@
+<h1>GOT IT!</h1>
+
+
+
+<%@films_hash.each do |film, info|
+    if info[:movie_id] == params["movie_id"]%>
+        <p>Title: <%="#{film}"%></p>
+        <p>Year: <%="#{info[:year]}"%></p>
+        <p>Synopsis: <%="#{info[:syn]}"%></p>
+        <p>Rating: <%="#{info[:rating]}"%></p>
+        <p>Genre: <%="#{info[:genre]}"%></p>
+        <p>Studio: <%="#{info[:studio]}"%></p>
+  <%end
+end %>
+
+
