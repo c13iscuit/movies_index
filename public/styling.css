@@ -1,3 +1,35 @@
-h1 {
+.movie-container-right {
+  float: left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
 
+.movie-container-left {
+  float: left;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.movie-link {
+  font-family: arial;
+}
+
+.bottom {
+  position: absolute;
+  top: 430px;
+  left: 30px;
+}
+
+.bottom-paging {
+  position: relative;
+  top: 330px;
+  right: 431px;
+}
+
+.first-page {
+  margin-left: 10px;
+}
+
+.last-page {
+  margin-right: 10px;
 }

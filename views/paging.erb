@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>c13iscuit's film index</title>
+  <link href="styling.css" media="screen" rel="stylesheet"/>
+</head>
+<body>
+<h1>Films</h1>
+<div class = "movie-container-left">
+<%if ((params["page"].to_i)*40)-1 < @films_array.count
+  @page_array = @films_array[(((params["page"].to_i)*40)-40)..((params["page"].to_i)*40)-1]
+  @column_array_l = @page_array[0..19]
+  @column_array_r = @page_array[20..39]
+  @column_array_l.each {|key, value|%><a class = "movie-link" href = "/movies/<%="#{key[:movie_id]}"%>"><%="#{key[:title]}"%></a><br><%}%>
+</div>
+<div class = "movie-container-right">
+<%@column_array_r.each {|key, value|%><a class = "movie-link" href = "/movies/<%="#{key[:movie_id]}"%>"><%="#{key[:title]}"%></a><br><%}%>
+</div>
+<%else%>
+  <h2>You have reached the end of the list</h2>
+<%end%>
+<br>
+<div class = "bottom">
+<br>
+<br>
+<form action="/movies" method="get">
+  <label for="query">Search: </label>
+  <input type="text" name="query" id="query" />
+  <input type="submit" value="Search" />
+  <br>
+  <br>
+  <a href = "/movies">Home</a>
+  <a class = "first-page" href = "/movies?page=<%=(params["page"].to_i+1)%>"><%="#{(params["page"].to_i+1)}"%></a>
+  <a href = "/movies?page=<%=(params["page"].to_i+2)%>"><%="#{(params["page"].to_i+2)}"%></a>
+  <a href = "/movies?page=<%=(params["page"].to_i+3)%>"><%="#{(params["page"].to_i+3)}"%></a>
+  <a href = "/movies?page=<%=(params["page"].to_i+4)%>"><%="#{(params["page"].to_i+4)}"%></a>
+  <a href = "/movies?page=<%=(params["page"].to_i+5)%>"><%="#{(params["page"].to_i+5)}"%></a>
+  <a href = "/movies?page=<%=(params["page"].to_i+6)%>"><%="#{(params["page"].to_i+6)}"%></a>
+  <a href = "/movies?page=<%=(params["page"].to_i+7)%>"><%="#{(params["page"].to_i+7)}"%></a>
+  <a class = "last-page" href = "/movies?page=<%=(params["page"].to_i+8)%>"><%="#{(params["page"].to_i+8)}"%></a>
+  <a href = "/movies?page=<%=(params["page"].to_i+1)%>">Next Page</a>
+</form>
+</div>
+</body>
+</html>
+

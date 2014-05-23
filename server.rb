@@ -15,16 +15,22 @@ require 'csv'
       @films_array << film_hash
     end
   @films_array = (@films_array.sort_by {|key, value| key[:title]})
-  puts "hello"
   end
 
 get "/movies" do
-  build_films("movies.csv")
-  erb :index
+build_films("movies.csv")
+  if params["page"] != nil
+    erb :paging
+  elsif params["page"] == nil && params["query"] == nil && params["movie_id"] == nil
+    erb :index
+  else params["movie_id"] == nil
+    erb :search
+  end
 end
 
 get "/movies/:movie_id" do
   build_films("movies.csv")
-  erb :index
+  erb :details
 end
+
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>c13iscuit's film index</title>
+  <link href="styling.css" media="screen" rel="stylesheet"/>
+</head>
+<body>
+<h1>Films</h1>
+<div>
+<%@films_array.each do |film|
+  request = params["query"].downcase.split("+")
+  request.each do |term|
+    if film[:title].downcase.include?"#{term}"%>
+      <p><a href = "/movies/<%="#{film[:movie_id]}"%>"><%="#{film[:title]}"%></a><br></p>
+    <%end
+  end
+end%>
+</div>
+  <br>
+  <div class = "bottom">
+  <br>
+  <br>
+  <form action="/movies" method="get">
+    <label for="query">Search: </label>
+    <input type="text" name="query" id="query" />
+    <input type="submit" value="Search" />
+    <br>
+    <br>
+    <a href = "/movies">Home</a>
+  </form>
+</div>
+</body>
+</html>
