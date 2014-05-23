@@ -1,43 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>c13iscuit's gilm index</title>
+  <link href="app.css" media="screen" rel="stylesheet"/>
+</head>
+<body>
+    <h1>Films</h1>
+    <%if params["page"] != nil
+        @page_array = @films_array[((params["page"].to_i*20)-20)..(params["page"].to_i*20)-1]
+        @page_array.each {|key, value|%><a href = "/movies/<%="#{key[:movie_id]}"%>"><%="#{key[:title]}"%></a><br><%}%>
+        <br>
+        <a href = "/movies?page=<%=(params["page"].to_i+1)%>">Next Page</a>
+    <%elsif params["page"] == nil && params["query"] == nil && params["movie_id"] == nil
+        @page_array = @films_array[0..19]
+        @page_array.each {|key, value|%><a href = "/movies/<%="#{key[:movie_id]}"%>"><%="#{key[:title]}"%></a><br><%}%>
+        <br>
+        <a href = "/movies?page=2">Next Page</a>
+    <%elsif params["movie_id"] == nil
+        @films_array.each do |film|
+          request = params["query"].downcase.split("+")
+          request.each do |term|
+            if film[:title].downcase.include?"#{term}"%>
+              <p><a href = "/movies/<%="#{film[:movie_id]}"%>"><%="#{film[:title]}"%></a><br></p>
+            <%end
+          end
+        end
+      else
+        @films_array.each do |film|
+          if film[:movie_id] == params["movie_id"]%>
+              <p>Title: <%="#{film[:title]}"%></p>
+              <p>Year: <%="#{film[:year]}"%></p>
+              <p>Synopsis: <%="#{film[:syn]}"%></p>
+              <p>Rating: <%="#{film[:rating]}"%></p>
+              <p>Genre: <%="#{film[:genre]}"%></p>
+              <p>Studio: <%="#{film[:studio]}"%></p>
+          <%end
+        end
+      end%>
 
-<h1>Films</h1>
-  <%if params["page"] != nil
-      @page_array = @films_array[((params["page"].to_i*20)-20)..(params["page"].to_i*20)-1]
-      @page_array.each {|key, value|%><a href = "/movies/<%="#{key[:movie_id]}"%>"><%="#{key[:title]}"%></a><br><%}%>
-      <br>
-      <a href = "/movies?page=<%=(params["page"].to_i+1)%>">Next Page</a>
-  <%elsif params["page"] == nil && params["query"] == nil && params["movie_id"] == nil
-      @page_array = @films_array[0..19]
-      @page_array.each {|key, value|%><a href = "/movies/<%="#{key[:movie_id]}"%>"><%="#{key[:title]}"%></a><br><%}%>
-      <br>
-      <a href = "/movies?page=2">Next Page</a>
-  <%elsif params["movie_id"] == nil
-    @films_array.each do |film|
-      request = params["query"].downcase.split("+")
-      request.each do |term|
-        if film[:title].downcase.include?"#{term}"%>
-          <p><a href = "/movies/<%="#{film[:movie_id]}"%>"><%="#{film[:title]}"%></a><br></p>
-        <%end
-      end
-    end
-  else
-    @films_array.each do |film|
-    if film[:movie_id] == params["movie_id"]%>
-        <p>Title: <%="#{film[:title]}"%></p>
-        <p>Year: <%="#{film[:year]}"%></p>
-        <p>Synopsis: <%="#{film[:syn]}"%></p>
-        <p>Rating: <%="#{film[:rating]}"%></p>
-        <p>Genre: <%="#{film[:genre]}"%></p>
-        <p>Studio: <%="#{film[:studio]}"%></p>
-  <%end
-end
-
-  end%>
-<br>
-<br>
-<form action="/movies" method="get">
-  <label for="query">Search: </label>
-  <input type="text" name="query" id="query" />
-  <input type="submit" value="Search" />
-</form>
-<br>
-<a href = "/movies">HOME</a>
+  <br>
+  <br>
+  <form action="/movies" method="get">
+    <label for="query">Search: </label>
+    <input type="text" name="query" id="query" />
+    <input type="submit" value="Search" />
+  </form>
+  <br>
+  <a href = "/movies">HOME</a>
+</body>
+</html>
